@@ -1,18 +1,27 @@
 package tests;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+
 import org.junit.jupiter.api.Test;
 
-public class AlfabankTest {
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.*;
 
+public class AlfabankTest {
+    @Test
+    void TestAlfaDeposit(){
+        open("https://alfabank.ru/make-money/");
+        $("h1").shouldHave(text("Накопительные продукты"));
+        $x("//*[text()='Депозиты']/ancestor::button").click();
+        $("[data-widget-name=\"Button\"]").shouldHave(text("Архивные счета и депозиты")).scrollTo().click();
+        $x("//span[text()='Депозиты']").click();
+        $$("[data-widget-name=\"CatalogCard\"]").shouldHaveSize(5);
+    }
 
     @Test
-    void TestAlfa(){
-        Selenide.open("https://alfabank.ru/");
-        Selenide.$(Selectors.byText("Вклады")).click();
-        Selenide.$("body").shouldHave(Condition.text("Накопительные продукты"));
+    void AlfaInsurance(){
+        open("https://alfabank.ru/make-money/");
+        $("[data-test-id=\"tabs-list\"]").scrollTo().$("button").sibling(0).click();;
+        System.out.println("Hello");
+
     }
 }
